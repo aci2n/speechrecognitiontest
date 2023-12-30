@@ -1,0 +1,43 @@
+function load() {
+    const grammar =
+	  "#JSGF V1.0; grammar spells; public <spell> = flash | ignite | ghost ;";
+    
+    const recognition = new webkitSpeechRecognition();
+    const speechRecognitionList = new webkitSpeechGrammarList();
+    
+    speechRecognitionList.addFromString(grammar, 1);
+    
+    recognition.grammars = speechRecognitionList;
+    recognition.continuous = false;
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    const diagnostic = document.querySelector(".output");
+    const bg = document.querySelector("html");
+
+    document.body.onclick = () => {
+	recognition.start();
+	console.log("Ready to receive a color command.");
+    };
+
+    recognition.onresult = (event) => {
+	const color = event.results[0][0].transcript;
+	diagnostic.textContent = `Result received: ${color}`;
+	console.log(`Result: ${color}`);
+	// bg.style.backgroundColor = color;
+    };
+
+    const events = ['audiostart', 'audioend', 'end', 'error',
+		    'nomatch', 'result', 'soundstart', 'soundend',
+		    'speechstart', 'speechend', 'start']
+    
+    for (event of events) {
+	const ev = event;
+	recognition.addEventListener(event, e => {
+	    console.log(e);
+	});
+    }
+}
+document.addEventListener("DOMContentLoaded", load);
+
