@@ -24,10 +24,12 @@ if not data_dir.exists():
       origin="http://storage.googleapis.com/download.tensorflow.org/data/mini_speech_commands.zip",
       extract=True,
       cache_dir='.', cache_subdir='data')
+  
 commands = np.array(tf.io.gfile.listdir(str(data_dir)))
 commands = commands[(commands != 'README.md') & (commands != '.DS_Store')]
 print('Commands:', commands)
 
+breakpoint()
 train_ds, val_ds = tf.keras.utils.audio_dataset_from_directory(
     directory=data_dir,
     batch_size=64,

@@ -2,5 +2,5 @@
 .#*
 *~
 data/
-.venv/
+venv/
 saved/

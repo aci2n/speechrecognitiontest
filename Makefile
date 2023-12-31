@@ -1,16 +1,14 @@
-PY := python3.8
-VENV := source .venv/bin/activate
+run: venv/touchfile
+	venv/bin/python main.py
 
-init:
-	$(PY) -m venv .venv
-	$(VENV) && \
-	$(PY) -m pip install --upgrade pip -r requirements.txt
+venv:
+	python3.8 -m venv venv
 
-run:
-	$(VENV) && \
-	$(PY) main.py
+venv/touchfile: venv requirements.txt
+	venv/bin/python -m pip install -U pip -r requirements.txt
+	touch venv/touchfile
 
 clean:
-	rm -rf .venv
+	rm -rf venv
 
-.PHONY: init run clean
+.PHONY: run clean
