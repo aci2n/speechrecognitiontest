@@ -5,3 +5,4 @@ numpy
 seaborn
 tensorflow
 IPython
+python-language-server[all]

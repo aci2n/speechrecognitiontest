@@ -1,4 +1,4 @@
-PY := python3
+PY := python3.8
 VENV := source .venv/bin/activate
 
 init:
@@ -6,8 +6,11 @@ init:
 	$(VENV) && \
 	$(PY) -m pip install --upgrade pip -r requirements.txt
 
-run: init
+run:
 	$(VENV) && \
 	$(PY) main.py
 
-.PHONY: init run
+clean:
+	rm -rf .venv
+
+.PHONY: init run clean
